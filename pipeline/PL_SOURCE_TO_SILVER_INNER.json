@@ -164,8 +164,6 @@
 			{
 				"name": "Copy data",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "read table details",
@@ -229,7 +227,7 @@
 						"parameters": {
 							"container": "landing",
 							"folder": {
-								"value": "@concat(\n    \n)",
+								"value": "@concat(\n    activity('read table details').output.firstRow.source_system,\n '/',\n    activity('read table details').output.firstRow.source_table_name.'/',\n  variables('start time')\n)",
 								"type": "Expression"
 							}
 						}
