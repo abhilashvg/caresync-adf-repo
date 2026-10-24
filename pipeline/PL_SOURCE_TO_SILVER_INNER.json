@@ -124,6 +124,8 @@
 			{
 				"name": "Landing to bronze",
 				"type": "DatabricksNotebook",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "source to landing",
@@ -165,6 +167,8 @@
 			{
 				"name": "bronze to silver",
 				"type": "DatabricksNotebook",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Landing to bronze",
@@ -202,6 +206,8 @@
 			{
 				"name": "insert _Success_status_",
 				"type": "Script",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "bronze to silver",
