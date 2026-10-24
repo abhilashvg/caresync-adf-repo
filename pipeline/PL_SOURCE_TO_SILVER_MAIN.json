@@ -80,33 +80,45 @@
 							}
 						},
 						{
-							"name": "Script1",
+							"name": "insert _inprogress _status",
 							"type": "Script",
-							"dependsOn": [
-								{
-									"activity": "ingest from source to silver",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
-								"retry": 0,
+								"retry": 2,
 								"retryIntervalInSeconds": 30,
 								"secureOutput": false,
 								"secureInput": false
 							},
 							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "LS_AzureSqlDatabase1",
+								"type": "LinkedServiceReference"
+							},
 							"typeProperties": {
-								"scripts": [],
+								"scripts": [
+									{
+										"type": "Query",
+										"text": {
+											"value": "insert INTO ctrl.audit_log (adf_run_id,table_id,stage,status,start_time) \nVALUES('a1',@{item().table_id},'source_to_silver','in_progress',SYSUTCDATETIME())",
+											"type": "Expression"
+										}
+									}
+								],
 								"scriptBlockExecutionTimeout": "02:00:00"
 							}
 						},
 						{
-							"name": "insert _inprogress _status",
+							"name": "insert _failed_status",
 							"type": "Script",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "ingest from source to silver",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
 							"policy": {
 								"timeout": "0.12:00:00",
 								"retry": 2,
