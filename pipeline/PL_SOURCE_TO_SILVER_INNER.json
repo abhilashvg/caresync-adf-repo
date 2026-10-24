@@ -241,7 +241,7 @@
 				"type": "string",
 				"defaultValue": "1"
 			},
-			"ad_run_id": {
+			"adf_run_id": {
 				"type": "string",
 				"defaultValue": "a1"
 			}
