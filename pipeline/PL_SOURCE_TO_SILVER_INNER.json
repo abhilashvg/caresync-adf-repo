@@ -162,7 +162,7 @@
 				}
 			},
 			{
-				"name": "Copy data",
+				"name": "Source to landing ingestion",
 				"type": "Copy",
 				"dependsOn": [
 					{
