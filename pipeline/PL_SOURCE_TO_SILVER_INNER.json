@@ -3,23 +3,6 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Set start time",
-				"type": "SetVariable",
-				"dependsOn": [],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "start time",
-					"value": {
-						"value": "@formatDateTime(utcNow(),'yyyy-MM-dd_HH:mm:ss')",
-						"type": "Expression"
-					}
-				}
-			},
-			{
 				"name": "bronze to silver",
 				"type": "DatabricksNotebook",
 				"state": "Inactive",
@@ -94,14 +77,7 @@
 				"type": "Copy",
 				"state": "Inactive",
 				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [
-					{
-						"activity": "Set start time",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -219,33 +195,6 @@
 						}
 					}
 				]
-			},
-			{
-				"name": "Lookup1",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "PostgreSqlV2Source",
-						"query": {
-							"value": "Select * from public.hospitals",
-							"type": "Expression"
-						},
-						"queryTimeout": "02:00:00"
-					},
-					"dataset": {
-						"referenceName": "DS_PostgreSqlTable1",
-						"type": "DatasetReference"
-					}
-				}
 			}
 		],
 		"parameters": {
