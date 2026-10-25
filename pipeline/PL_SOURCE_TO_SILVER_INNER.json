@@ -195,6 +195,50 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Reads the source table",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "PostgreSqlV2Source",
+						"query": {
+							"value": "select * from public.hospitals",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00"
+					},
+					"dataset": {
+						"referenceName": "DS_PostgreSqlTable1",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "time",
+					"value": {
+						"value": "@utcNow(variables('start time'))",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -209,6 +253,9 @@
 		},
 		"variables": {
 			"start time": {
+				"type": "String"
+			},
+			"time": {
 				"type": "String"
 			}
 		},
